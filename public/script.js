@@ -1,5 +1,5 @@
 $(document).ready(displayColors);
-$('.generate-btn').on('click', displayColors);
+$('.brush-btn').on('click', displayColors);
 $('.locker').on('click', toggleImage);
 
 const palettes = [
@@ -36,6 +36,10 @@ function toggleImage() {
   $(this).attr('src', src);
 }
 
-function lockPalette() {
-  if()
-}
+// function lockPalette() {
+//   if($('.palettes').find('.locker').hasClass('locked')) {
+//     $('.palettes').find('.hexcode') === 
+//   } else {
+
+//   }
+// }

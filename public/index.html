@@ -1,38 +1,57 @@
 <!DOCTYPE html>
   <html>
     <head>
-      <title>Palette Picker</title>
+      <title>Happy Palette Picker</title>
       <meta name="viewport" content="width=device-width">
       <link href="styles.css" type="text/css" rel="stylesheet">
     </head>
     <body>
-      <h1>Pick Your Palette</h1>
-      <button class="generate-btn">Generate Palette</button>
-      <section class="palettes">
-        <div class="color-palette palette1">
-          <img class="locker" src="./images/unlocked.svg" />
-          <h3 class="hexcode"></h3>
-        </div>
-        <div class="color-palette palette2">
-          <img class="locker" src="./images/unlocked.svg" />
-          <h3 class="hexcode"></h3>
-        </div>
-        <div class="color-palette palette3">
-          <img class="locker" src="./images/unlocked.svg" />
-          <h3 class="hexcode"></h3>
-        </div>
-        <div class="color-palette palette4">
-          <img class="locker" src="./images/unlocked.svg" />
-          <h3 class="hexcode"></h3>
-        </div>
-        <div class="color-palette palette5">
-          <img class="locker" src="./images/unlocked.svg" />
-          <h3 class="hexcode"></h3>
-        </div>
-      </section>
-      <form>
-        <input type="text" placeholder="Palette name" />
-      </form>
+      <div class="wrapper">
+        <form class="toolkit">
+          <h1 class="title">Pick Your Palette</h1>
+          <!-- <img class="brush-btn" src="./images/brush.svg" /> -->
+          <button class="brush-btn">Generate Palette</button>
+
+          <div class="palette-tool">
+            <select>
+              <option></option>
+            </select>
+            <input type="text" 
+              placeholder="Palette name" />
+            <button class="save-btn">Save Palette</button>
+          </div>
+
+          <div class="project-tool">
+            <h3>Create New Project</h3>
+            <input type="text"
+              placeholder="Project name" />
+            <button class="save-btn">Save Project</button>  
+          </div>
+
+        </form>
+        <section class="palettes">
+          <div class="color-palette palette1">
+            <img class="locker" src="./images/unlocked.svg" />
+            <h3 class="hexcode"></h3>
+          </div>
+          <div class="color-palette palette2">
+            <img class="locker" src="./images/unlocked.svg" />
+            <h3 class="hexcode"></h3>
+          </div>
+          <div class="color-palette palette3">
+            <img class="locker" src="./images/unlocked.svg" />
+            <h3 class="hexcode"></h3>
+          </div>
+          <div class="color-palette palette4">
+            <img class="locker" src="./images/unlocked.svg" />
+            <h3 class="hexcode"></h3>
+          </div>
+          <div class="color-palette palette5">
+            <img class="locker" src="./images/unlocked.svg" />
+            <h3 class="hexcode"></h3>
+          </div>
+        </section>
+      </div>
       <script
         src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
