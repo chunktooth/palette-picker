@@ -1,0 +1,29 @@
+body {
+  font-family: sans-serif; 
+  text-align: center;
+}
+
+/*h1 {
+ 
+}*/
+
+.generate-btn {
+  width: 30%;
+  padding: 10px;
+  font-size: 26px;
+  margin-bottom: 30px;
+}
+
+.palettes {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.color-palette {
+  display: inline-block;
+  width: 200px;
+  height: 500px;
+  border: solid 2px black;
+}
