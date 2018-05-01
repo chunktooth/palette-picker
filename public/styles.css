@@ -3,10 +3,6 @@ body {
   text-align: center;
 }
 
-/*h1 {
- 
-}*/
-
 .generate-btn {
   width: 30%;
   padding: 10px;
@@ -14,16 +10,21 @@ body {
   margin-bottom: 30px;
 }
 
+.locker {
+  width: 50px;
+  margin-top: 30px;
+  cursor: pointer
+}
+
 .palettes {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: center;
+  width: 100%;
 }
 
 .color-palette {
-  display: inline-block;
-  width: 200px;
+  width: 18%;
   height: 500px;
-  border: solid 2px black;
 }
