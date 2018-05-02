@@ -1,6 +1,8 @@
 $(document).ready(displayColors);
-$('.brush-btn').on('click', displayColors);
-$('.locker').on('click', toggleImage);
+$('.generate-btn').on('click', displayColors);
+$('.locker').on('click', toggleLocker);
+$('.save-project').on('click', saveProject);
+$('.save-palette').on('click', savePalette);
 
 const palettes = [
   $('.palette1'),
@@ -10,36 +12,79 @@ const palettes = [
   $('.palette5')
 ];
 
+var hexCollection = [];
+
 function generateHex() {
   var digits = '0123456789ABCDEF';
   var hex = '#';
-  for (var i = 0; i < 6; i++) {
-    hex += digits[Math.floor(Math.random() * 16)];
-  }
+    for (var i = 0; i < 6; i++) {
+      hex += digits[Math.floor(Math.random() * 16)];
+    }
+  hexCollection.push(hex);
+  console.log(hexCollection);
   return hex;
 }
 
 function displayColors() {
   palettes.forEach(palette => {
-    let hex = generateHex();
-    palette.css('background-color', hex)
-    palette.find('.hexcode').text(hex);
+    var hex;
+    if (!palette.children('img').hasClass('locked')) {
+      hex = generateHex();
+      palette.css('background-color', hex)
+    }
+      palette.find('.hexcode').text(hex); 
   });
-  lockPalette();
 }
 
-function toggleImage() {
+function toggleLocker() { 
   var locked = './images/locked.svg';
   var unlocked = './images/unlocked.svg';
-  var src = $(this).attr('src') === locked ? unlocked : locked;
+  var src = $(this).attr('src') === unlocked ? locked : unlocked;
 
+  $(this).toggleClass('locked');
   $(this).attr('src', src);
 }
 
-// function lockPalette() {
-//   if($('.palettes').find('.locker').hasClass('locked')) {
-//     $('.palettes').find('.hexcode') === 
-//   } else {
+function saveProject(e) {
+  e.preventDefault();
+  var projectName = $('.project-input').val();
 
-//   }
-// }
+  $('.project-list').prepend(`
+    <option>${projectName}</option>
+  `);
+
+  $('.project-input').val('');
+};
+
+function savePalette(e) {
+  e.preventDefault();
+  var paletteName = $('.palette-input').val();
+  var allProjects = $('.all-projects');
+
+  console.log(hexCollection);
+
+  allProjects.prepend(`
+    <div class='all-thumbs'>
+      <h3 class='palette-name'>${paletteName}</h3>
+      <div class='color-thumbnail' 
+          style='background-color:${hexCollection[0]}'>
+      </div>
+      <div class='color-thumbnail' 
+          style='background-color:${hexCollection[1]}'>
+      </div>
+      <div class='color-thumbnail' 
+          style='background-color:${hexCollection[2]}'>
+      </div>
+      <div class='color-thumbnail' 
+          style='background-color:${hexCollection[3]}'>
+      </div>  
+      <div class='color-thumbnail' 
+          style='background-color:${hexCollection[4]}'>
+      </div>
+    </div>
+  `) 
+  
+    hexCollection = [];
+
+  $('.palette-input').val('');  
+};

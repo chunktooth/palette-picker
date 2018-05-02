@@ -1,56 +1,65 @@
 <!DOCTYPE html>
   <html>
     <head>
-      <title>Happy Palette Picker</title>
+      <title>Palette Picker</title>
       <meta name="viewport" content="width=device-width">
       <link href="styles.css" type="text/css" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css?family=Patrick+Hand+SC" rel="stylesheet">
     </head>
     <body>
-      <div class="wrapper">
-        <form class="toolkit">
-          <h1 class="title">Pick Your Palette</h1>
-          <!-- <img class="brush-btn" src="./images/brush.svg" /> -->
-          <button class="brush-btn">Generate Palette</button>
-
-          <div class="palette-tool">
-            <select>
-              <option></option>
-            </select>
-            <input type="text" 
-              placeholder="Palette name" />
-            <button class="save-btn">Save Palette</button>
-          </div>
-
-          <div class="project-tool">
-            <h3>Create New Project</h3>
-            <input type="text"
-              placeholder="Project name" />
-            <button class="save-btn">Save Project</button>  
-          </div>
-
-        </form>
+      <h1>P A L E T T E&nbsp;&nbsp;&nbsp;P I C K E R</h1>
+      <div class="wrapper">  
         <section class="palettes">
           <div class="color-palette palette1">
-            <img class="locker" src="./images/unlocked.svg" />
+            <img class="locker" 
+              src="./images/unlocked.svg" />
             <h3 class="hexcode"></h3>
           </div>
           <div class="color-palette palette2">
-            <img class="locker" src="./images/unlocked.svg" />
+            <img class="locker" 
+              src="./images/unlocked.svg" />
             <h3 class="hexcode"></h3>
           </div>
           <div class="color-palette palette3">
-            <img class="locker" src="./images/unlocked.svg" />
+            <img class="locker" 
+              src="./images/unlocked.svg" />
             <h3 class="hexcode"></h3>
           </div>
           <div class="color-palette palette4">
-            <img class="locker" src="./images/unlocked.svg" />
+            <img class="locker" 
+              src="./images/unlocked.svg" />
             <h3 class="hexcode"></h3>
           </div>
           <div class="color-palette palette5">
-            <img class="locker" src="./images/unlocked.svg" />
+            <img class="locker" 
+              src="./images/unlocked.svg" />
             <h3 class="hexcode"></h3>
           </div>
         </section>
+        <div class="toolkit">  
+          <button class="generate-btn">Generate Palette</button>
+          <form>
+            <div class="palette-tool">
+              <select class="project-list">
+                <!-- project name <option> prepending -->
+              </select>
+              <input type="text"
+                class="palette-input"
+                placeholder="Palette name" />
+              <button class="save-palette">Save Palette</button>
+            </div>
+            <div class="project-tool">
+              <h3>Create New Project</h3>
+              <input type="text"
+                class="project-input"
+                placeholder="Project name" />
+              <button class="save-project">Save Project</button>
+              <div class="all-projects">
+                <!-- saved project <div> prepending -->
+              </div>  
+            </div>
+          </form>
+        </div>
       </div>
       <script
         src="https://code.jquery.com/jquery-3.3.1.min.js"

@@ -1,21 +1,43 @@
 body {
   font-family: sans-serif; 
   text-align: center;
+  font-family: 'Patrick Hand SC', cursive;
+  background-image: url('./images/static-tv.png');
+  background-repeat: none;
+  background-size: cover;
+}
+
+h1 {
+  width: 100%;
+  margin: 0;
+  font-size: 50px;
+  color: #FFFFFF;
+}
+
+button {
+  font-family: 'Patrick Hand SC', cursive;
 }
 
 .wrapper {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  margin-top: 8%;
+  margin-top: 3%;
 }
 
 .toolkit {
-  width: 30%;
+  position: relative;
+  width: 16%;
+  left: 72px;
 }
 
-.title {
-  margin: 0;
+.generate-btn,
+.save-pallete,
+ {
+  width: 145px;
+  padding: 5px;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .palette-tool {
@@ -23,7 +45,7 @@ body {
 }
 
 .project-tool {
-  margin-top: 50px;
+  margin-top: 30px;
 }
 
 .locker {
@@ -37,7 +59,10 @@ body {
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: center;
-  width: 70%;
+  width: 72%;
+  position: relative;
+  left: 50px;
+  top: 27px;
 }
 
 .color-palette {
@@ -46,6 +71,21 @@ body {
 }
 
 .hexcode {
-  background-color: #FFFFFF;
-  color: #000000;
+  background-color: #000000;
+  color: #FFFFFF;
+}
+
+.all-projects {
+  margin-top: 10px;
+}
+
+.palette-name {
+  margin: 0;
+}
+
+.color-thumbnail {
+  display: inline-block;
+  margin: 0;
+  width: 10px;
+  height: 20px;
 }
