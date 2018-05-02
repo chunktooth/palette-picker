@@ -4,36 +4,34 @@
       <title>Palette Picker</title>
       <meta name="viewport" content="width=device-width">
       <link href="styles.css" type="text/css" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css?family=Patrick+Hand+SC" rel="stylesheet">
     </head>
     <body>
+      <h1>P A L E T T E&nbsp;&nbsp;&nbsp;P I C K E R</h1>
       <div class="wrapper">  
         <div class="toolkit">  
-          <h1 class="title">Pick Your Palette</h1>
           <button class="generate-btn">Generate Palette</button>
-
           <form>
             <div class="palette-tool">
               <select class="project-list">
-                <!-- <option> prepending -->
+                <!-- project name <option> prepending -->
               </select>
               <input type="text"
-                class="palette-name"
+                class="palette-input"
                 placeholder="Palette name" />
               <button class="save-palette">Save Palette</button>
             </div>
-
             <div class="project-tool">
               <h3>Create New Project</h3>
               <input type="text"
-                class="project-name"
+                class="project-input"
                 placeholder="Project name" />
               <button class="save-project">Save Project</button>
               <div class="all-projects">
-                <!-- project <div> prepending -->
+                <!-- saved project <div> prepending -->
               </div>  
             </div>
           </form>
-
         </div>
         <section class="palettes">
           <div class="color-palette palette1">
@@ -62,7 +60,6 @@
             <h3 class="hexcode"></h3>
           </div>
         </section>
-
       </div>
       <script
         src="https://code.jquery.com/jquery-3.3.1.min.js"

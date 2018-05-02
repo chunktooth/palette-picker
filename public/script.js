@@ -1,6 +1,6 @@
 $(document).ready(displayColors);
 $('.generate-btn').on('click', displayColors);
-$('.locker').on('click', toggleImage);
+$('.locker').on('click', toggleLocker);
 $('.save-project').on('click', saveProject);
 $('.save-palette').on('click', savePalette);
 
@@ -12,7 +12,7 @@ const palettes = [
   $('.palette5')
 ];
 
-var hexArray = [];
+var hexCollection = [];
 
 function generateHex() {
   var digits = '0123456789ABCDEF';
@@ -20,6 +20,8 @@ function generateHex() {
     for (var i = 0; i < 6; i++) {
       hex += digits[Math.floor(Math.random() * 16)];
     }
+  hexCollection.push(hex);
+  console.log(hexCollection);
   return hex;
 }
 
@@ -29,13 +31,12 @@ function displayColors() {
     if (!palette.children('img').hasClass('locked')) {
       hex = generateHex();
       palette.css('background-color', hex)
-      palette.find('.hexcode').text(hex); 
     }
-    savePalette(hex);
+      palette.find('.hexcode').text(hex); 
   });
 }
 
-function toggleImage() { 
+function toggleLocker() { 
   var locked = './images/locked.svg';
   var unlocked = './images/unlocked.svg';
   var src = $(this).attr('src') === unlocked ? locked : unlocked;
@@ -46,22 +47,46 @@ function toggleImage() {
 
 function saveProject(e) {
   e.preventDefault();
-  var projectName = $('.project-name').val();
+  var projectName = $('.project-input').val();
 
   $('.project-list').prepend(`
     <option>${projectName}</option>
   `);
 
-  $('.project-name').val('');
+  $('.project-input').val('');
 };
 
 function savePalette(e) {
   e.preventDefault();
-  var paletteName = $('.palette-name').val();
+  var paletteName = $('.palette-input').val();
+  var allProjects = $('.all-projects');
 
-  $('.all-projects').prepend(`
-    <div>
-      
+  allProjects.prepend(`
+    <h3 class='palette-name'>${paletteName}</h3>
+  `);
+    console.log(hexCollection);
+
+  allProjects.prepend(`
+    <div class='color-thumbnail' 
+        style='background-color:${hexCollection[0]}'></div>
     </div>
-  `)  
-}
+    <div class='color-thumbnail' 
+        style='background-color:${hexCollection[1]}'></div>
+    </div>
+    <div class='color-thumbnail' 
+        style='background-color:${hexCollection[2]}'></div>
+    </div>
+    <div class='color-thumbnail' 
+        style='background-color:${hexCollection[3]}'></div>
+    </div>
+    <div class='color-thumbnail' 
+        style='background-color:${hexCollection[4]}'></div>
+    </div>
+  `) 
+  // });
+
+    hexCollection = [];
+
+
+  $('.palette-input').val('');  
+};
