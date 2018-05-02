@@ -61,32 +61,30 @@ function savePalette(e) {
   var paletteName = $('.palette-input').val();
   var allProjects = $('.all-projects');
 
-  allProjects.prepend(`
-    <h3 class='palette-name'>${paletteName}</h3>
-  `);
-    console.log(hexCollection);
+  console.log(hexCollection);
 
   allProjects.prepend(`
-    <div class='color-thumbnail' 
-        style='background-color:${hexCollection[0]}'></div>
-    </div>
-    <div class='color-thumbnail' 
-        style='background-color:${hexCollection[1]}'></div>
-    </div>
-    <div class='color-thumbnail' 
-        style='background-color:${hexCollection[2]}'></div>
-    </div>
-    <div class='color-thumbnail' 
-        style='background-color:${hexCollection[3]}'></div>
-    </div>
-    <div class='color-thumbnail' 
-        style='background-color:${hexCollection[4]}'></div>
+    <div class='all-thumbs'>
+      <h3 class='palette-name'>${paletteName}</h3>
+      <div class='color-thumbnail' 
+          style='background-color:${hexCollection[0]}'>
+      </div>
+      <div class='color-thumbnail' 
+          style='background-color:${hexCollection[1]}'>
+      </div>
+      <div class='color-thumbnail' 
+          style='background-color:${hexCollection[2]}'>
+      </div>
+      <div class='color-thumbnail' 
+          style='background-color:${hexCollection[3]}'>
+      </div>  
+      <div class='color-thumbnail' 
+          style='background-color:${hexCollection[4]}'>
+      </div>
     </div>
   `) 
-  // });
-
+  
     hexCollection = [];
-
 
   $('.palette-input').val('');  
 };

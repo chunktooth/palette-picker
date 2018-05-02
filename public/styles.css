@@ -2,12 +2,16 @@ body {
   font-family: sans-serif; 
   text-align: center;
   font-family: 'Patrick Hand SC', cursive;
+  background-image: url('./images/static-tv.png');
+  background-repeat: none;
+  background-size: cover;
 }
 
 h1 {
   width: 100%;
   margin: 0;
   font-size: 50px;
+  color: #FFFFFF;
 }
 
 button {
@@ -22,11 +26,15 @@ button {
 }
 
 .toolkit {
-  width: 30%;
+  position: relative;
+  width: 16%;
+  left: 72px;
 }
 
-.generate-btn {
-  width: 100%;
+.generate-btn,
+.save-pallete,
+ {
+  width: 145px;
   padding: 5px;
   font-size: 20px;
   font-weight: bold;
@@ -51,7 +59,10 @@ button {
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: center;
-  width: 70%;
+  width: 72%;
+  position: relative;
+  left: 50px;
+  top: 27px;
 }
 
 .color-palette {
@@ -60,8 +71,8 @@ button {
 }
 
 .hexcode {
-  background-color: #FFFFFF;
-  color: #000000;
+  background-color: #000000;
+  color: #FFFFFF;
 }
 
 .all-projects {

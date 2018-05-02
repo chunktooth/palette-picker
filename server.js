@@ -1,16 +1,15 @@
-const express = require('express'); // import express library via NPM install
-const app = express(); // instantiate express
-const bodyParser = require('body-parser'); // import bodyparser module
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+const environment = process.env.NODE_ENV || 'development';
+const configuration = require('./knexfile')[environment];
+const database = require('knex')(configuration);
 
-app.set('port', process.env.PORT || 3000); // set port variable with default at 3000
-app.locals.title = 'Palette Picker'; // 
-app.locals.palettes  = [];
-app.locals.projects = [];
+app.set('port', process.env.PORT || 3000);
+app.locals.title = 'Palette Picker';
 
-app.use(bodyParser.json()); // use bodyParser in app
-// app.use(bodyParser.urlencoded({ extended: true });
-app.use(express.static('public')); // 
-
+app.use(bodyParser.json()); 
+app.use(express.static('public'));
 app.use((request, response, next) => {
   response.header('Access-Control-Allow-Origin', '*');
   next();
@@ -21,47 +20,47 @@ app.get('/', (request, response) => {
 });
 
 app.get('/api/v1/palettes', (request, response) => {
-  const palettes = app.locals.palettes;
-
-  if (palettes) {
-    response.status(200).json({ palettes });   
-  } else {
-    return response.status(404).json('Page Not Found');
-  }
+  database('palettes').select()
+  .then(palettes => {
+    response.status(200).json(palettes);      
+  })
+  .catch(error => {
+    response.status(500).json({ error });
+  });
 });
 
 app.get('/api/v1/projects', (request, response) => {
-  const projects = app.locals.projects;
-
-  if(projects) {
-    return response.status(200).json({ projects });
-  } else {
-    return response.status(404).json('Page Not Found');
-  }
+  database('projects').select()
+  .then(projects => {
+    response.status(200).json(projects);      
+  })
+  .catch(error => {
+    response.status(500).json({ error });
+  });
 });
 
 app.post('/api/v1/palettes', (request, response) => {
-  const id = Date.now();
-  const { palettes } = request.body;
+  const palettes = request.body;
 
-  if(!palettes) {
-    return response.status(422).send({ error: 'Well-formed request but containing semantic errors' });
-  } else {
-    app.locals.palettes.push({ id, palettes });
-    return response.status(201).json({ id, palettes });
-  }
+  database('palettes').insert('palette', 'id')
+    .then(palette => {
+      response.status(201).json({ id: palette[0] })
+    })
+    .catch(error => {
+      response.status(500).json({ error });
+    });
 });
 
 app.post('/api/v1/projects', (request, response) => {
-  const id = Date.now();
-  const { projects } = request.body;
+  const projects = request.body;
 
-  if(!projects) {
-    return response.status(422).send({ error: 'Well-formed request but containing semantic errors '});
-  } else {
-    app.locals.projects.push({ id, projects });
-    return  repponse.status(201).json({ id, projects });
-  }
+  database('projects').insert('project', 'id')
+    .then(project => {
+      response.status(201).json({ id: project[0] })
+    })
+    .catch(error => {
+      response.status(500).json({ error });
+    });
 });
 
 // app.delete('api/v1/palettes:id', (request, response) => {
