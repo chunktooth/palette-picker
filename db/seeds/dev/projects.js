@@ -9,14 +9,15 @@ exports.seed = function(knex, Promise) {
         ], 'id')
         .then(project => {
           return knex('palettes').insert([
-            { id:1,
-              palette_name: 'Ick Candies',
-              color0: '#258006',
-              color1: '#42F3E7',
-              color2: '#448232',
-              color3: '#0D0F4C',
-              color4: '#B93CE8',
-              project_id: project[0]
+            { 
+              "id": 1,
+              "palette_name": "Ice-cream bar",
+              "color0": "#B38938",
+              "color1": "#A6C571",
+              "color2": "#542912",
+              "color3": "#818680",
+              "color4": "#E871A9",
+              "project_id": project[0],
             },
             { id:2,
               palette_name: 'Sick Sticks',
@@ -25,7 +26,7 @@ exports.seed = function(knex, Promise) {
               color2: '#448232',
               color3: '#42F3E7',
               color4: '#258006',
-              project_id: project[0]
+              project_id: project[1]
             }
           ])
         })

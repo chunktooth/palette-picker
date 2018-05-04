@@ -68,7 +68,6 @@ app.delete('/api/v1/palettes/', (request, response) => {
   });
 });
 
-
 app.listen(app.get('port'), () => {
   console.log('Palette Server listening');
 });

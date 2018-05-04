@@ -43,7 +43,7 @@ select {
   position: relative;
   width: 17%;
   left: 4%;
-  background-color: rgba(255, 255, 255, .3);
+  background-color: rgba(0, 0, 0, .75);
 }
 
 .generate-btn,
@@ -96,7 +96,7 @@ select {
   margin-top: 19px;
   overflow: scroll;
   height: 550px;
-  background-color: rgba(0, 0, 0, .75);
+  
 }
 
 .palette-name {
@@ -141,12 +141,6 @@ select {
   width: 20px;
   cursor: pointer;
 }
-
-/*@media screen and (max-width: 1555px) {
-  .color-palette {
-    height: 74vh;
-  }
-}*/
 
 @media screen and (max-width: 1198px) {
   h1 {
