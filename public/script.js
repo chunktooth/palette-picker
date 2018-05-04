@@ -86,7 +86,7 @@ async function loadData() {
   paletteArray.forEach(palette => {
     console.log(palette);
     $(`.${palette.project_id}`).append(`
-        <div class=`all-thumbs ${palette.palette_id}`>
+        <div class='all-thumbs ${palette.id}'>
           <h3 class='palette-name'>${palette.palette_name}</h3>
           <div class='color-thumbnail' style='background-color:${palette.color0}'></div>
           <div class='color-thumbnail' style='background-color:${palette.color1}'></div>
