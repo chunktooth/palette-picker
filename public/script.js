@@ -1,13 +1,11 @@
 $(document).ready(displayColors);
+loadData();
 $('.generate-btn').on('click', displayColors);
 $('.locker').on('click', toggleLocker);
 $('.make-project').on('click', postProject);
 $('.save-palette').on('click', postPalette);
-$('.project-id').on('click', '.delete-btn', deleteProject);
-$('.p')
-// fetchProjects();
-// fetchPalettes();
-loadData();
+$('.project-id').on('click', '.delete-project', deleteProject);
+$('.palette-id').on('click', '.delete-palette', deletePalette);
 
 let hexCollection = [];
 
@@ -52,33 +50,53 @@ async function fetchProjects() {
     let response = await fetch('/api/v1/projects');
     let projects = await response.json();
 
-    // loadProjects(projects);
-
     return projects;
   } catch (error) {
     return error;
   }
 }
 
-async function postProject(event) {
-  event.preventDefault();
-  let projectName = $('.project-input').val();
-
+async function fetchPalettes() {
   try {
-    const response = await fetch('/api/v1/projects', {
-      method: 'POST',
-      body: JSON.stringify({project_name: projectName}),
-      headers: { 'Content-Type': 'application/json' }
-    });
-    const projectId = await response.json();
+    let response = await fetch('/api/v1/palettes');
+    let palettes = await response.json();
 
-    $('.project-input').val('');
-    // location.reload();
-    return projectId;    
+    return palettes;
   } catch (error) {
     return error;
   }
-};
+}
+
+async function loadData() {
+  const projectArray = await fetchProjects();
+  const paletteArray = await fetchPalettes();
+
+  projectArray.forEach(project => {
+    $('.project-list').append(`
+      <option value='${project.project_name}'>
+        ${project.project_name}</option>`);
+
+    $('.all-projects').append(`
+      <div class=${project.id} project-id>
+        <h3 class='project-name'>Project: ${project.project_name}</h3>    
+        <p class='delete-project'>X</p>
+      </div>`)
+  });
+
+  paletteArray.forEach(palette => {
+    $(`.${palette.project_id}`).append(`
+        <div class='all-thumbs ${palette.palette_id}' palette-id>
+          <h3 class='palette-name'>${palette.palette_name}</h3>
+          <div class='color-thumbnail' style='background-color:${palette.color0}'></div>
+          <div class='color-thumbnail' style='background-color:${palette.color1}'></div>
+          <div class='color-thumbnail' style='background-color:${palette.color2}'></div>
+          <div class='color-thumbnail' style='background-color:${palette.color3}'></div>  
+          <div class='color-thumbnail' style='background-color:${palette.color4}'></div>
+          <img class='delete-palette' src='./images/white-rubbish.svg' class='bin' />
+        </div>
+    `)
+  });
+}
 
 function showProject(e) {
   e.preventDefault();
@@ -97,39 +115,25 @@ function showProject(e) {
   }
 }
 
-// function loadProjects(projects) {
-  
-//   projects.forEach(project => {
-//     $('.project-list').append(`
-//       <option value='${project.project_name}'>
-//         ${project.project_name}</option>`);
+async function postProject(event) {
+  event.preventDefault();
+  let projectName = $('.project-input').val();
 
-//     $('.all-projects').append(`
-//       <div class=${project.project_id} project-id>
-//       <h3 class='project-name'>Project: ${project.project_name}
-//       </h3>    
-//       <p class='delete-btn'>X</p>
-//       </div>`)
-
-//     // $('.all-projects').append(`
-      
-//     // `)
-//   });
-  
-// }
-
-async function fetchPalettes() {
   try {
-    let response = await fetch('/api/v1/palettes');
-    let palettes = await response.json();
- 
-    // loadPalettes(palettes);
+    const response = await fetch('/api/v1/projects', {
+      method: 'POST',
+      body: JSON.stringify({project_name: projectName}),
+      headers: { 'Content-Type': 'application/json' }
+    });
+    const projectId = await response.json();
 
-    return palettes;
+    $('.project-input').val('');
+
+    return projectId;    
   } catch (error) {
     return error;
   }
-}
+};
 
 async function postPalette(event) {
   event.preventDefault();
@@ -164,64 +168,6 @@ async function postPalette(event) {
     return error;
   }  
 };
-
-// function showPalette(e) {
-//   e.preventDefault();
-//   let paletteName = $('.palette-input').val();
-//   let existingPalette = $.map($('.palette-name'), name => 
-//     $(name).text());
-//   let paletteFound = existingPalette.find(palette => 
-//     palette === paletteName);
-//   postPalette(paletteName);
-
-  // $('.all-projects').prepend(`
-  //   <div class='all-thumbs'>
-  //     <h3 class='palette-name'>${paletteName}</h3>
-  //     <div class='color-thumbnail' style='background-color:${hexCollection[0]}'></div>
-  //     <div class='color-thumbnail' style='background-color:${hexCollection[1]}'></div>
-  //     <div class='color-thumbnail' style='background-color:${hexCollection[2]}'></div>
-  //     <div class='color-thumbnail' style='background-color:${hexCollection[3]}'></div>  
-  //     <div class='color-thumbnail' style='background-color:${hexCollection[4]}'></div>
-  //     <img src='./images/white-rubbish.svg' class='bin' />
-  //   </div>
-  // `)
-// }
-
-async function loadData() {
-  const projectArray = await fetchProjects();
-  const paletteArray = await fetchPalettes();
-
-  console.log(projectArray);
-  console.log(paletteArray);
-
-  projectArray.forEach(project => {
-    $('.project-list').append(`
-      <option value='${project.project_name}'>
-        ${project.project_name}</option>`);
-
-    $('.all-projects').append(`
-      <div class=${project.id} project-id>
-        <h3 class='project-name'>Project: ${project.project_name}</h3>    
-        <p class='delete-btn'>X</p>
-      </div>`)
-  });
-
-  paletteArray.forEach(palette => {
-    // passing project ID to parents element here
-
-    $(`.${palette.project_id}`).append(`
-        <div class='all-thumbs ${palette.palette_id}'>
-          <h3 class='palette-name'>${palette.palette_name}</h3>
-          <div class='color-thumbnail' style='background-color:${palette.color0}'></div>
-          <div class='color-thumbnail' style='background-color:${palette.color1}'></div>
-          <div class='color-thumbnail' style='background-color:${palette.color2}'></div>
-          <div class='color-thumbnail' style='background-color:${palette.color3}'></div>  
-          <div class='color-thumbnail' style='background-color:${palette.color4}'></div>
-          <img src='./images/white-rubbish.svg' class='bin' />
-        </div>
-    `)
-  });
-} 
 
 async function deletePalette() {
   const thisPalette = $(this).parent();
