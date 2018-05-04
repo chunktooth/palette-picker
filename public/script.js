@@ -1,18 +1,9 @@
 $(document).ready(displayColors);
 $('.generate-btn').on('click', displayColors);
 $('.locker').on('click', toggleLocker);
-$('.make-project').on('click', showProject);
-$('.save-palette').on('click', showPalette);
+$('.make-project').on('click', postProject);
+$('.save-palette').on('click', postPalette);
 fetchProjects();
-fetchPalettes();
-
-const allPalettes = [
-  $('.palette1'),
-  $('.palette2'), 
-  $('.palette3'),
-  $('.palette4'),
-  $('.palette5')
-];
 
 let hexCollection = [];
 
@@ -27,13 +18,19 @@ function generateHex() {
 }
 
 function displayColors() {
+  const allPalettes = [
+    $('.palette1'),
+    $('.palette2'), 
+    $('.palette3'),
+    $('.palette4'),
+    $('.palette5')
+  ];
   allPalettes.forEach(palette => {
-    let hex;
     if (!palette.children('img').hasClass('locked')) {
-      hex = generateHex();
+      let hex = generateHex();
       palette.css('background-color', hex)
-    }
       palette.find('.hexcode').text(hex); 
+    }
   });
 }
 
@@ -59,7 +56,10 @@ async function fetchProjects() {
   }
 }
 
-async function postProject(projectName) {
+async function postProject(event) {
+  event.preventDefault();
+  let projectName = $('.project-input').val();
+
   try {
     const response = await fetch('/api/v1/projects', {
       method: 'POST',
@@ -67,7 +67,8 @@ async function postProject(projectName) {
       headers: { 'Content-Type': 'application/json' }
     });
     const projectId = await response.json();
-
+    $('.project-input').val('');
+    location.reload();
     return projectId;    
   } catch (error) {
     return error;
@@ -89,37 +90,45 @@ function showProject(e) {
      $('.all-projects').prepend(`
       <h3 class='project-name'>Project: ${projectName}</h3>`)
   }
-
-  $('.project-input').val(''); 
 }
 
 function loadProjects(projects) {
   projects.forEach(project => {
-    $('.project-list').prepend(`
+    $('.project-list').append(`
       <option value='${project.project_name}'>
         ${project.project_name}</option>`);
-    $('.all-projects').prepend(`
+    $('.all-projects').append(`
       <div class=${project.project_id}>
       <h3 class='project-name'>Project: ${project.project_name}</h3>
+      <img src='./images/white-rubbish.svg' class='bin' />
       </div>`)
   });
+  fetchPalettes();
 }
 
 async function fetchPalettes() {
   try {
     let response = await fetch('/api/v1/palettes');
     let palettes = await response.json();
-    console.log(palettes);
-
+ 
     loadPalettes(palettes);
+
     return palettes;
   } catch (error) {
     return error;
   }
 }
 
-async function postPalette(paletteName, hexCollection) {
-  console.log(hexCollection)
+async function postPalette(event) {
+  event.preventDefault();
+  let paletteName = $('.palette-input').val();
+  let projectId = $('select').val();
+  let response = await fetch('/api/v1/projects');
+  let projects = await response.json();
+  let project_id = projects.find(project => {
+    project.project_name === project.id
+  });
+
   try {
     const response = await fetch('/api/v1/palettes', {
       method: 'POST',
@@ -129,44 +138,44 @@ async function postPalette(paletteName, hexCollection) {
         color1: hexCollection[1],
         color2: hexCollection[2],
         color3: hexCollection[3],
-        color4: hexCollection[4]
+        color4: hexCollection[4],
+        project_id: project_id
       }),
       headers: { 'Content-Type': 'application/json' }
     });
-    const paletteId = await response.json();
+    const palletteId = await response.json();
 
+    $('.palette-input').val('');
+    location.reload();
     return paletteId;
   } catch (error) {
     return error;
-  }
+  }  
 };
 
 function showPalette(e) {
   e.preventDefault();
   let paletteName = $('.palette-input').val();
-  postPalette(paletteName);
 
-  // $('.all-projects').prepend(`
-  //   <div class='all-thumbs'>
-  //     <h3 class='palette-name'>${paletteName}</h3>
-  //     <div class='color-thumbnail' style='background-color:${hexCollection[0]}'></div>
-  //     <div class='color-thumbnail' style='background-color:${hexCollection[1]}'></div>
-  //     <div class='color-thumbnail' style='background-color:${hexCollection[2]}'></div>
-  //     <div class='color-thumbnail' style='background-color:${hexCollection[3]}'></div>  
-  //     <div class='color-thumbnail' style='background-color:${hexCollection[4]}'></div>
-  //     <img src='./images/white-rubbish.svg' class='bin' />
-  //   </div>
-  // `)
-  // hexCollection = [];  
-   // $('.palette-input').val('');
+  $('.all-projects').prepend(`
+    <div class='all-thumbs'>
+      <h3 class='palette-name'>${paletteName}</h3>
+      <div class='color-thumbnail' style='background-color:${hexCollection[0]}'></div>
+      <div class='color-thumbnail' style='background-color:${hexCollection[1]}'></div>
+      <div class='color-thumbnail' style='background-color:${hexCollection[2]}'></div>
+      <div class='color-thumbnail' style='background-color:${hexCollection[3]}'></div>  
+      <div class='color-thumbnail' style='background-color:${hexCollection[4]}'></div>
+      <img src='./images/white-rubbish.svg' class='bin' />
+    </div>
+  `)
 }
 
 function loadPalettes(palettes) {
   console.log(palettes);
 
   palettes.forEach(palette => {
-    $('.all-projects').prepend(`
-      <div class='all-thumbs'>
+    $('.all-projects').append(`
+      <div class='all-thumbs ${palette.palette_id}'>
         <h3 class='palette-name'>${palette.palette_name}</h3>
         <div class='color-thumbnail' style='background-color:${palette.color0}'></div>
         <div class='color-thumbnail' style='background-color:${palette.color1}'></div>
