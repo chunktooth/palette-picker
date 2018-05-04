@@ -20,6 +20,7 @@ button {
   color: #FFFFFF;
   font-size: 20px;
   width: 100%;
+  cursor: pointer;
 }
 
 input {
@@ -82,7 +83,7 @@ select {
 
 .color-palette {
   width: 19%;
-  height: 90vh;
+  height: 790px;
 }
 
 .hexcode {
@@ -94,14 +95,14 @@ select {
 .all-projects {
   margin-top: 19px;
   overflow: scroll;
-  height: 490px;
+  height: 550px;
   background-color: rgba(0, 0, 0, .75);
 }
 
 .palette-name {
   font-family: monospace;
   margin-top: 30px;
-  /*background-color: #000000;*/
+
   font-size: 16px;
   color: #FFFFFF;
 }
@@ -122,15 +123,17 @@ select {
 }
 
 .project-name,
-.delete-btn {
+.delete-project {
   display: inline-block;
 }
 
-.delete-btn {
+.delete-project {
   margin: 0;
   background: #000000;
   color: #FFFFFF;
   padding: 5px;
+  font-size: 15px;
+  cursor: pointer;
 }
 
 .bin {
