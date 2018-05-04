@@ -79,7 +79,7 @@ async function loadData() {
     $('.all-projects').append(`
       <div class=${project.id} project-id>
         <h3 class='project-name'>Project: ${project.project_name}</h3>    
-        <p class='delete-project'>X</p>
+        <p class='delete-project'>Remove Project</p>
       </div>`)
   });
 
@@ -92,7 +92,7 @@ async function loadData() {
           <div class='color-thumbnail' style='background-color:${palette.color2}'></div>
           <div class='color-thumbnail' style='background-color:${palette.color3}'></div>  
           <div class='color-thumbnail' style='background-color:${palette.color4}'></div>
-          <img class='delete-palette' src='./images/white-rubbish.svg' class='bin' />
+          <img src='./images/white-rubbish.svg' class='bin delete-palette' />
         </div>
     `)
   });
