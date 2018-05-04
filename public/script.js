@@ -4,8 +4,8 @@ $('.generate-btn').on('click', displayColors);
 $('.locker').on('click', toggleLocker);
 $('.make-project').on('click', postProject);
 $('.save-palette').on('click', postPalette);
-$('.project-id').on('click', '.delete-project', deleteProject);
-$('.palette-id').on('click', '.delete-palette', deletePalette);
+// $('.project-id').on('click', '.delete-project', deleteProject);
+// $('.palette-id').on('click', '.delete-palette', deletePalette);
 
 let hexCollection = [];
 
@@ -92,7 +92,7 @@ async function loadData() {
           <div class='color-thumbnail' style='background-color:${palette.color2}'></div>
           <div class='color-thumbnail' style='background-color:${palette.color3}'></div>  
           <div class='color-thumbnail' style='background-color:${palette.color4}'></div>
-          <img src='./images/white-rubbish.svg' class='bin delete-palette' />
+          <button class='delete-palette'><img src='./images/white-rubbish.svg' class='bin /></button>
         </div>
     `)
   });
@@ -128,7 +128,7 @@ async function postProject(event) {
     const projectId = await response.json();
 
     $('.project-input').val('');
-
+    location.reload();
     return projectId;    
   } catch (error) {
     return error;
@@ -169,8 +169,13 @@ async function postPalette(event) {
   }  
 };
 
+$('.delete-palette').on('click', function() {
+  console.log($(this).parent());
+})
+
 async function deletePalette() {
   const thisPalette = $(this).parent();
+  console.log(thisPalette);
 
   try {
     const response = await fetch('/api/v1/palettes', {
