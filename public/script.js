@@ -4,8 +4,8 @@ $('.generate-btn').on('click', displayColors);
 $('.locker').on('click', toggleLocker);
 $('.make-project').on('click', postProject);
 $('.save-palette').on('click', postPalette);
-// $('.project-id').on('click', '.delete-project', deleteProject);
-// $('.palette-id').on('click', '.delete-palette', deletePalette);
+$('.all-projects').on('click', '.delete-project', deleteProject);
+$('.all-projects').on('click', '.delete-palette', deletePalette);
 
 let hexCollection = [];
 
@@ -77,22 +77,24 @@ async function loadData() {
         ${project.project_name}</option>`);
 
     $('.all-projects').append(`
-      <div class=${project.id} project-id>
+      <div class=${project.id}>
         <h3 class='project-name'>Project: ${project.project_name}</h3>    
-        <p class='delete-project'>Remove Project</p>
+        <p class='delete-project'>Delete Project</p>
       </div>`)
   });
 
   paletteArray.forEach(palette => {
+    console.log(palette);
     $(`.${palette.project_id}`).append(`
-        <div class='all-thumbs ${palette.palette_id}' palette-id>
+        <div class=`all-thumbs ${palette.palette_id}`>
           <h3 class='palette-name'>${palette.palette_name}</h3>
           <div class='color-thumbnail' style='background-color:${palette.color0}'></div>
           <div class='color-thumbnail' style='background-color:${palette.color1}'></div>
           <div class='color-thumbnail' style='background-color:${palette.color2}'></div>
           <div class='color-thumbnail' style='background-color:${palette.color3}'></div>  
           <div class='color-thumbnail' style='background-color:${palette.color4}'></div>
-          <button class='delete-palette'><img src='./images/white-rubbish.svg' class='bin /></button>
+          <img src='./images/white-rubbish.svg' 
+          class='bin delete-palette'/>
         </div>
     `)
   });
@@ -169,12 +171,23 @@ async function postPalette(event) {
   }  
 };
 
-$('.delete-palette').on('click', function() {
-  console.log($(this).parent());
-})
+async function deleteProject() {
+  const projectId = $(this).parent('div')[0].className;
+
+    try {
+    const response = await fetch('/api/v1/projects', {
+      method: 'DELETE',
+      body: JSON.stringify({ id: projectId }),
+      headers: { 'Content-Type': 'application/json' }
+    })
+    $(this).parent().remove();
+  } catch (error) {
+    return error;
+  }
+}
 
 async function deletePalette() {
-  const thisPalette = $(this).parent();
+  const thisPalette = $(this).parent('div');
   console.log(thisPalette);
 
   try {
@@ -184,21 +197,6 @@ async function deletePalette() {
       headers: { 'Content-Type': 'application/json' }
     })
     $(this).parent().remove();
-  } catch (error) {
-    return error;
-  }
-}
-
-async function deleteProject() {
-  const thisProject = $(this).parents();
-
-    try {
-    const response = await fetch('/api/v1/projects', {
-      method: 'DELETE',
-      body: JSON.stringify({ id: thisProject }),
-      headers: { 'Content-Type': 'application/json' }
-    })
-    $(this).parents().remove();
   } catch (error) {
     return error;
   }

@@ -136,10 +136,6 @@ select {
   cursor: pointer;
 }
 
-.delete-palette {
-  palette-color: ;
-}
-
 .bin {
   position: relative;
   width: 20px;
