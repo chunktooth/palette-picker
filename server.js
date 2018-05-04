@@ -10,14 +10,6 @@ app.locals.title = 'Palette Picker';
 
 app.use(bodyParser.json()); 
 app.use(express.static('public'));
-app.use((request, response, next) => {
-  response.header('Access-Control-Allow-Origin', '*');
-  next();
-});
-
-app.get('/', (request, response) => {
-  response.send('Palette Serverrr!')
-});
 
 app.get('/api/v1/palettes', (request, response) => {
   database('palettes').select()
@@ -39,38 +31,46 @@ app.get('/api/v1/projects', (request, response) => {
   });
 });
 
-app.post('/api/v1/palettes', (request, response) => {
-  const palettes = request.body;
+app.post('/api/v1/palettes/', (request, response) => {
+  const palette = request.body;
 
-  database('palettes').insert('palette', 'id')
-    .then(palette => {
-      response.status(201).json({ id: palette[0] })
-    })
-    .catch(error => {
-      response.status(500).json({ error });
-    });
+  database('palettes').insert(palette, 'id')
+  .then(palette => {
+    response.status(201).json({ id: palette[0] })
+  })
+  .catch(error => {
+    response.status(500).json({ error });
+  });
 });
 
-app.post('/api/v1/projects', (request, response) => {
-  const projects = request.body;
+app.post('/api/v1/projects/', (request, response) => {
+  const project = request.body;
 
-  database('projects').insert('project', 'id')
-    .then(project => {
-      response.status(201).json({ id: project[0] })
-    })
-    .catch(error => {
-      response.status(500).json({ error });
-    });
+  database('projects').insert(project, 'id')
+
+  .then(project => {
+    response.status(201).json({ id: project[0] })
+  })
+  .catch(error => {
+    response.status(500).json({ error });
+  });
 });
 
-// app.delete('api/v1/palettes:id', (request, response) => {
-//  
-// });
+app.delete('/api/v1/palettes/', (request, response) => {
+  const id = request.body.id;
 
-// app.delete('api/v1/projects:id', (request, response) => {
-//  
-// });
+  database('palettes').where('id', id).del()
+  .then(palette => {
+    response.status(202).json('SUCCESS!');
+  })
+  .catch(error => {
+    response.status(500).json({ error });
+  });
+});
+
 
 app.listen(app.get('port'), () => {
   console.log('Palette Server listening');
 });
+
+module.exports = app;

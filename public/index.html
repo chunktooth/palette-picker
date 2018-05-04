@@ -4,9 +4,9 @@
       <title>Palette Picker</title>
       <meta name="viewport" content="width=device-width">
       <link href="styles.css" type="text/css" rel="stylesheet">
-      <link href="https://fonts.googleapis.com/css?family=Patrick+Hand+SC" rel="stylesheet">
     </head>
     <body>
+      <div class="background">
       <h1>P A L E T T E&nbsp;&nbsp;&nbsp;P I C K E R</h1>
       <div class="wrapper">  
         <section class="palettes">
@@ -40,20 +40,21 @@
           <button class="generate-btn">Generate Palette</button>
           <form>
             <div class="palette-tool">
+              <input type="text"
+                class="project-input"
+                placeholder="Project name" />
+              <button class="make-project">Make New Project</button>
+            <div class="project-tool">
               <select class="project-list">
+                <option disabled>Project Names</option>
                 <!-- project name <option> prepending -->
               </select>
               <input type="text"
                 class="palette-input"
                 placeholder="Palette name" />
-              <button class="save-palette">Save Palette</button>
+              <button class="save-palette">Save This Palette</button>
             </div>
-            <div class="project-tool">
-              <h3>Create New Project</h3>
-              <input type="text"
-                class="project-input"
-                placeholder="Project name" />
-              <button class="save-project">Save Project</button>
+            
               <div class="all-projects">
                 <!-- saved project <div> prepending -->
               </div>  
@@ -66,5 +67,6 @@
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
       <script src="script.js" type="text/javascript"></script>
+     </div>
     </body>
   </html>
