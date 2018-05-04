@@ -64,7 +64,7 @@ app.delete('/api/v1/palettes/', (request, response) => { // calling DELETE metho
     response.status(202).json('SUCCESS!');
   })
   .catch(error => { // catching error
-    response.status(500).json({ error }); // returning a response with a status code of successful request, with a 
+    response.status(500).json({ error }); // returning a response with a status code of successful request, with a response object
   });
 });
 
