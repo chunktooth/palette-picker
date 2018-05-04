@@ -1,43 +1,57 @@
 body {
-  font-family: sans-serif; 
   text-align: center;
-  font-family: 'Patrick Hand SC', cursive;
-  background-image: url('./images/static-tv.png');
-  background-repeat: none;
+  font-family: monospace;
+  background-image: url('../../images/static-tv.png');
+  background-color: black;
   background-size: cover;
 }
 
 h1 {
   width: 100%;
-  margin: 0;
-  font-size: 50px;
+  margin-top: 19px;
+  font-size: 65px;
   color: #FFFFFF;
+  font-family: monospace;
 }
 
 button {
-  font-family: 'Patrick Hand SC', cursive;
+  font-family: monospace;
+  background-color: #000000;
+  color: #FFFFFF;
+  font-size: 20px;
+  width: 100%;
+}
+
+input {
+  width: 96.7%;
+  font-size: 20px;
+}
+
+select {
+  width: 100%;
+  font-size: 20px;
 }
 
 .wrapper {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  margin-top: 3%;
 }
 
 .toolkit {
   position: relative;
-  width: 16%;
-  left: 72px;
+  width: 17%;
+  left: 4%;
+  background-color: rgba(255, 255, 255, .3);
 }
 
 .generate-btn,
-.save-pallete,
- {
+.save-pallete, {
   width: 145px;
   padding: 5px;
   font-size: 20px;
   font-weight: bold;
+  border: solid 3px ;
 }
 
 .palette-tool {
@@ -46,10 +60,11 @@ button {
 
 .project-tool {
   margin-top: 30px;
+  font-family: monospace;
 }
 
 .locker {
-  width: 50px;
+  width: 30px;
   margin-top: 30px;
   cursor: pointer
 }
@@ -59,28 +74,36 @@ button {
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: center;
-  width: 72%;
+  width: 75%;
   position: relative;
-  left: 50px;
-  top: 27px;
+  left: 3%;
+  top: 40px;
 }
 
 .color-palette {
   width: 19%;
-  height: 500px;
+  height: 83vh;
 }
 
 .hexcode {
   background-color: #000000;
   color: #FFFFFF;
+  font-size: 20px;
 }
 
 .all-projects {
-  margin-top: 10px;
+  margin-top: 19px;
+  overflow: scroll;
+  height: 400px;
+  background-color: rgba(0, 0, 0, .75);
 }
 
 .palette-name {
-  margin: 0;
+  font-family: monospace;
+  margin-top: 30px;
+  background-color: #000000;
+  font-size: 16px;
+  color: #FFFFFF
 }
 
 .color-thumbnail {
@@ -88,4 +111,40 @@ button {
   margin: 0;
   width: 10px;
   height: 20px;
+}
+
+.project-name {
+  font-family: monospace;
+  font-size: 18;
+  background-color: #FFFFFF;
+  color: #000000;
+}
+
+.bin {
+  width: 20px;
+  cursor: pointer;
+}
+
+/*@media screen and (max-width: 1555px) {
+  .color-palette {
+    height: 74vh;
+  }
+}*/
+
+@media screen and (max-width: 1198px) {
+  h1 {
+    font-size: 40px;
+  }
+}
+
+@media screen and (max-width: 980px) {
+  .palettes {
+    width: 75%;
+    height: 16vh;
+  }
+
+  .generate-btn,
+  form {
+    display: inline-block;
+  }
 }
