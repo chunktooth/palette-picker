@@ -84,7 +84,6 @@ async function loadData() {
   });
 
   paletteArray.forEach(palette => {
-    console.log(palette);
     $(`.${palette.project_id}`).append(`
         <div class='all-thumbs ${palette.id}'>
           <h3 class='palette-name'>${palette.palette_name}</h3>
@@ -173,13 +172,14 @@ async function postPalette(event) {
 
 async function deleteProject() {
   const projectId = $(this).parent('div')[0].className;
-
-    try {
-    const response = await fetch('/api/v1/projects', {
+  
+  try {
+    await fetch('/api/v1/projects', {
       method: 'DELETE',
       body: JSON.stringify({ id: projectId }),
       headers: { 'Content-Type': 'application/json' }
     })
+
     $(this).parent().remove();
   } catch (error) {
     return error;
@@ -187,16 +187,15 @@ async function deleteProject() {
 }
 
 async function deletePalette() {
-  const thisPalette = $(this).parent('div');
-  console.log(thisPalette);
+  const paletteId = $(this).parent('div')[0].className.slice(-1);
 
   try {
-    const response = await fetch('/api/v1/palettes', {
+    await fetch('/api/v1/palettes', {
       method: 'DELETE',
-      body: JSON.stringify({ id: thisPalette }),
+      body: JSON.stringify({ id: paletteId }),
       headers: { 'Content-Type': 'application/json' }
     })
-    $(this).parent().remove();
+    $(this).parent().parent().remove();
   } catch (error) {
     return error;
   }
