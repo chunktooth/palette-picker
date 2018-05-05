@@ -24,7 +24,7 @@ describe('Testing endpoints', () => {
 
   describe('GET', () => {
     it('GET all projects', (done) => {
-      chai.request(app)
+      return chai.request(app)
       .get('/api/v1/projects')
       .end((error, response) => {
         response.should.have.status(200);
@@ -43,7 +43,7 @@ describe('Testing endpoints', () => {
   });
 
     it('GET all palettes', (done) => {
-      chai.request(app)
+      return chai.request(app)
         .get('/api/v1/palettes')
         .end((error, response) => {
           response.should.have.status(200);
@@ -64,7 +64,7 @@ describe('Testing endpoints', () => {
     });
 
     it('GET a project by a specified id', () => {
-      chai.request(app)
+      return chai.request(app)
         .get('/api/v1/projects/1')
         .end((error, response) => {
           response.should.have.status(200);
@@ -75,7 +75,7 @@ describe('Testing endpoints', () => {
     });
 
     it('GET a palette by a specified id', () => {
-      chai.request(app)
+      return chai.request(app)
         .get('/api/v1/palettes/1')
         .end((error, response) => {
           response.should.have.status(200);
@@ -88,7 +88,7 @@ describe('Testing endpoints', () => {
 
   describe('POST', () => {
     it('POST a new project', (done) => {
-      chai.request(app)
+      return chai.request(app)
         .post('/api/v1/projects')
         .send({
           project_name: 'Project2'
@@ -103,7 +103,7 @@ describe('Testing endpoints', () => {
     });
 
     it('POST a new palette', (done) => {
-      chai.request(app)
+      return chai.request(app)
         .post('/api/v1/palettes')
         .send({
           id:1,
@@ -125,7 +125,7 @@ describe('Testing endpoints', () => {
     });
 
     it('should not POST to projects with missing data', (done) => {
-      chai.request(app)
+      return chai.request(app)
         .post('/api/v1/projects')
         .send({})
         .end((error, response) => {
@@ -136,7 +136,7 @@ describe('Testing endpoints', () => {
     }); 
 
     it('should not POST to palettes with missing data', (done) => {
-      chai.request(app)
+      return chai.request(app)
         .post('/api/v1/palettes')
         .send({})
         .end((error, response) => {
@@ -149,7 +149,7 @@ describe('Testing endpoints', () => {
 
   describe('DELETE', () => {
     it('DELETE a project with a specified id', (done) => {
-      chai.request(app)
+      return chai.request(app)
       .delete('/api/v1/projects/')
       .send({ id: 2 })
       .end((error, response) => {
@@ -159,7 +159,7 @@ describe('Testing endpoints', () => {
     });
 
     it('DELETE a palette with a specified id', (done) => {
-      chai.request(app)
+      return chai.request(app)
       .delete('/api/v1/palettes/')
       .send({ id: 2 })
       .end((error, response) => {
