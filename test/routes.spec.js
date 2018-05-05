@@ -16,7 +16,7 @@ describe('Testing endpoints', () => {
       .then(() => {
         return database.seed.run()
         .then(() => {
-          done();
+          done(k);
         });
       });
     });
