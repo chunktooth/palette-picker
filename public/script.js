@@ -2,8 +2,8 @@ $(document).ready(displayColors);
 loadData();
 $('.generate-btn').on('click', displayColors);
 $('.locker').on('click', toggleLocker);
-$('.make-project').on('click', postProject);
 $('.save-palette').on('click', postPalette);
+$('.make-project').on('click', postProject);
 $('.all-projects').on('click', '.delete-project', deleteProject);
 $('.all-projects').on('click', '.delete-palette', deletePalette);
 
@@ -49,6 +49,7 @@ async function fetchProjects() {
   try {
     let response = await fetch('/api/v1/projects');
     let projects = await response.json();
+    console.log(projects);
 
     return projects;
   } catch (error) {
@@ -60,6 +61,7 @@ async function fetchPalettes() {
   try {
     let response = await fetch('/api/v1/palettes');
     let palettes = await response.json();
+    console.log(palettes);
 
     return palettes;
   } catch (error) {
@@ -123,7 +125,7 @@ async function postProject(event) {
   try {
     const response = await fetch('/api/v1/projects', {
       method: 'POST',
-      body: JSON.stringify({project_name: projectName}),
+      body: JSON.stringify({ project_name: projectName }),
       headers: { 'Content-Type': 'application/json' }
     });
     const projectId = await response.json();
@@ -140,11 +142,13 @@ async function postPalette(event) {
   event.preventDefault();
   let paletteName = $('.palette-input').val();
   let projectName = $('select').val();
+  console.log(projectName);
 
   let response = await fetch('/api/v1/projects');
   let projects = await response.json();
-  let project_id = projects.find(project => 
+  let project_id = projects.find(project =>
     project.project_name === projectName).id;
+  console.log(project_id);
 
   try {
     const response = await fetch('/api/v1/palettes', {
@@ -170,9 +174,25 @@ async function postPalette(event) {
   }  
 };
 
+async function deletePalette() {
+  const paletteId = $(this).parent('div')[0].className.slice(-1);
+  console.log(paletteId);
+
+  try {
+    await fetch('/api/v1/palettes', {
+      method: 'DELETE',
+      body: JSON.stringify({ id: paletteId }),
+      headers: { 'Content-Type': 'application/json' }
+    })
+    $(this).parent().remove();
+  } catch (error) {
+    return error;
+  }
+}
+
 async function deleteProject() {
   const projectId = $(this).parent('div')[0].className;
-  
+
   try {
     await fetch('/api/v1/projects', {
       method: 'DELETE',
@@ -181,21 +201,6 @@ async function deleteProject() {
     })
 
     $(this).parent().remove();
-  } catch (error) {
-    return error;
-  }
-}
-
-async function deletePalette() {
-  const paletteId = $(this).parent('div')[0].className.slice(-1);
-
-  try {
-    await fetch('/api/v1/palettes', {
-      method: 'DELETE',
-      body: JSON.stringify({ id: paletteId }),
-      headers: { 'Content-Type': 'application/json' }
-    })
-    $(this).parent().parent().remove();
   } catch (error) {
     return error;
   }

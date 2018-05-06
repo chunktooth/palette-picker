@@ -1,7 +1,7 @@
-const express = require('express'); // import express liberay installed via NPM
+const express = require('express'); // import express library installed via NPM
 const app = express(); // instantiate express 
 const bodyParser = require('body-parser'); // import body-parser extension
-const environment = process.env.NODE_ENV || 'development'; // running node in environment
+const environment = process.env.NODE_ENV || 'development'; // running node with development tool instrumentation
 const configuration = require('./knexfile')[environment]; // running knexfile on environment
 const database = require('knex')(configuration); // import configuration in knex
 
@@ -17,7 +17,7 @@ app.get('/api/v1/palettes', (request, response) => { // calling GET method to th
     response.status(200).json(palette); // returning a response with a status code of successful request, with an array of objects in JSON format     
   })
   .catch(error => { // catching error
-    response.status(500).json({ error }); // return a response with a status code of server error, with the error object
+    response.status(404).json(error); // return a response with a status code of server error, with an error
   });
 });
 
@@ -27,7 +27,7 @@ app.get('/api/v1/palettes/:id', (request, response) => {
     response.status(200).json(palette[0]); // returning a response with a status code of successful request with found data
   })
   .catch(error => { // catching error
-    response.status(404).json({ error }); // return a response with a status code of status not found with error object
+    response.status(404).json(error); // return a response with a status code of status not found with an error
   });
 })
 
@@ -37,7 +37,7 @@ app.get('/api/v1/projects', (request, response) => { // calling GET method to th
     response.status(200).json(projects); // returning a response with a status code of successful request, with an array of objects in JSON format          
   })
   .catch(error => { // catching error
-    response.status(500).json({ error }); // return a response with a status code of server error, with the error object
+    response.status(404).json(error); // return a response with a status code of server error, with an error
   });
 });
 
@@ -47,22 +47,23 @@ app.get('/api/v1/projects/:id', (request, response) => {
     response.status(200).json(project[0]); // returning a response with a status code of successful request with found data
   })
   .catch(error => { // catching error
-    response.status(404).json({ error }); // return a response with a status code of status not found with error object
+    response.status(404).json(error); // return a response with a status code of status not found with an error
   });
 })
 
 app.post('/api/v1/palettes', (request, response) => { // calling POST method to this endpoint
   const palette = request.body; // request body object value
 
-  if (!palette.name) {
+  if (!palette.palette_name) {
     return response.status(406).send({ error: 'Missing Data'}) // returning response object with status code and message that data is missing
   } else {
     database('palettes').insert(palette, 'id') // insert data with an id at this table
+
     .then(palette => { // returning solved promise 
     response.status(201).json({ id: palette[0] }) // returning a response with a status code of successful request, with a response object
   })
     .catch(error => { // catching error
-    response.status(500).json({ error }); // return a response with a status code of server error, with the error object
+    response.status(500).json(error); // return a response with a status code of server error, with an error
     });
   }; 
 });
@@ -70,13 +71,13 @@ app.post('/api/v1/palettes', (request, response) => { // calling POST method to 
 app.post('/api/v1/projects', (request, response) => { // calling GET method to this endpoint
   const project = request.body; // request body object value
 
-  if (!project.name) {
+  if (!project.project_name) {
     return response.status(406).send({ error: 'Missing Data'}) // returning response object with status code and message that data is missing
   } else {
     database('projects').insert(project, 'id') // insert data with an id at this table
 
     .then(project => { // returning solved promise 
-    response.status(201).json({ id: project[0] }) // returning a response with a status code of successful request, with a response object
+    response.status(201).json({ project_id: project[0] }) // returning a response with a status code of successful request, with a response object
   })
     .catch(error => { // catching error
     response.status(500).json({ error }); // return a response with a status code of server error, with the error object
@@ -85,26 +86,26 @@ app.post('/api/v1/projects', (request, response) => { // calling GET method to t
 });
 
 app.delete('/api/v1/palettes', (request, response) => { // calling DELETE method to this endpoint
-  const id = request.body.id; // request body object value
+  const id = request.body.palette_id; // request body object value
 
   database('palettes').where('id', id).del()
-  .then(palette => { // returning solved promise 
+  .then(palettes => { // returning solved promise 
     response.status(202).json('SUCCESS!');
   })
   .catch(error => { // catching error
-    response.status(500).json({ error }); // returning a response with a status code of successful request, with a response object
+    response.status(500).json({ error }); // returning a response with a status code of successful request, with the error object
   });
 });
 
 app.delete('/api/v1/projects', (request, response) => { // calling DELETE method to this endpoint
-  const id = request.body.id; // request body object value
+  const id = request.body.project_id; // request body object value
 
   database('projects').where('id', id).del()
   .then(projects => { // returning solved promise 
     response.status(202).json('SUCCESS!');
   })
   .catch(error => { // catching error
-    response.status(500).json({ error }); // returning a response with a status code of successful request, with a response object
+    response.status(500).json({ error }); // returning a response with a status code of successful request, with an error object
   });
 });
 

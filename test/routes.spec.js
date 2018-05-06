@@ -8,6 +8,10 @@ const chaiHttp = require('chai-http');
 
 chai.use(chaiHttp);
 
+describe('App', function() {
+  describe('/api/v1/projects')
+})
+
 describe('Testing endpoints', () => {
   beforeEach(done => {
     database.migrate.rollback()
