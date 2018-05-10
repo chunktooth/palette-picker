@@ -87,7 +87,7 @@ async function loadData() {
 
   paletteArray.forEach(palette => {
     $(`.${palette.project_id}`).append(`
-        <div class='all-thumbs ${palette.id}'>
+        <div class='${palette.id}'>
           <h3 class='palette-name'>${palette.palette_name}</h3>
           <div class='color-thumbnail' style='background-color:${palette.color0}'></div>
           <div class='color-thumbnail' style='background-color:${palette.color1}'></div>
@@ -175,8 +175,7 @@ async function postPalette(event) {
 };
 
 async function deletePalette() {
-  const paletteId = $(this).parent('div')[0].className.slice(-1);
-  console.log(paletteId)
+  const paletteId = $(this).parent('div')[0].className;
 
   try {
     await fetch('/api/v1/palettes', {
@@ -191,7 +190,7 @@ async function deletePalette() {
 }
 
 async function deleteProject() {
-  const projectId = $(this).parent().parent('div')[0].className;
+  const projectId = $(this).parent('div')[0].className;
 
   try {
     await fetch('/api/v1/projects', {

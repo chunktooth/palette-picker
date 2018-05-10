@@ -8,47 +8,49 @@ const chaiHttp = require('chai-http');
 
 chai.use(chaiHttp);
 
-describe('Client Routes', () => {
-  it('should return the homepage', () => {
-    return chai.request(app)
-    .get('/', (req, res) => {
-      response.should.have.status(200)
-    })
-  })
+// describe('Client Routes', () => {
+//   it('should return the homepage', () => {
+//     return chai.request(app)
+//     .get('/', (req, res) => {
+//       response.should.have.status(200)
+//     })
+//   })
+// });
+
+describe('Testing endpoints', () => {
+  beforeEach(done => {
+    return database.migrate.rollback()
+    .then(() => {
+      return database.migrate.latest()
+      .then(() => {
+        return database.seed.run()
+        .then(() => {
+          done();
+        });
+      });
+    });
+  });
+
+  describe('GET', () => {
+    it('GET all projects', (done) => {
+      chai.request(app)
+      .get('/api/v1/projects')
+      .end((error, response) => {
+        response.should.have.status(200);
+        response.should.be.json;
+        response.body.should.be.an('array');
+        response.body.length.should.equal(2);
+        response.body[0].project.should.equal('Project1');
+        response.body[0].should.have.property('id');
+        response.body[0].id.should.equal(1);
+        response.body[0].should.have.property('project_name');
+        response.body[0].should.have.property('created_at');
+        response.body[0].should.have.property('updated_at');
+      done();
+      });
+    });
+  });
 });
-
-// describe('Testing endpoints', () => {
-//   beforeEach(done => {
-//     database.migrate.rollback()
-//     .then(() => {
-//       database.migrate.latest()
-//       .then(() => {
-//         return database.seed.run()
-//         .then(() => {
-//           done();
-//         });
-//       });
-//     });
-//   });
-
-//   describe('GET', () => {
-//     it('GET all projects', (done) => {
-//       chai.request(app)
-//       .get('/api/v1/projects')
-//       .end((error, response) => {
-//         response.should.have.status(200);
-//         response.should.be.json;
-//         response.body.should.be.an('array');
-//         response.body.length.should.equal(2);
-//         response.body[0].project.should.equal('Project1');
-//         response.body[0].should.have.property('id');
-//         response.body[0].id.should.equal(1);
-//         response.body[0].should.have.property('project_name');
-//         response.body[0].should.have.property('created_at');
-//         response.body[0].should.have.property('updated_at');
-//       done();
-//       });
-//     });
 
 //     it('GET all palettes', (done) => {
 //       chai.request(app)
