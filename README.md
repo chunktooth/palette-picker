@@ -3,7 +3,7 @@
 
 By [chunktooth](https://github.com/chunktooth/)
 
-Hosted on Heroku [ppv-heroku](http://palette-picker-vintage.herokuapp.com/)
+Hosted on Heroku [http://palette-picker-vintage.herokuapp.com/]
 
 Inspired by Coolers, warning: this vintage colored TV will generate random color palette for you (at your own risk & leisure!) Users can lock the color even while being randomized, every palette can be saved to or deleted from a project of your choice.
 
