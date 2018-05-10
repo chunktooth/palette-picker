@@ -1,8 +1,8 @@
 const express = require('express'); // import express library installed via NPM
 const app = express(); // instantiate express 
 const bodyParser = require('body-parser'); // import body-parser extension
-const environment = process.env.NODE_ENV || 'development'; // running node with development tool instrumentation
-const configuration = require('./knexfile')[environment]; // running knexfile on environment
+const environment = process.env.NODE_ENV || 'development'; // setting up node environment
+const configuration = require('./knexfile')[environment]; // running knexfile on the set-up environment
 const database = require('knex')(configuration); // import configuration in knex
 
 app.set('port', process.env.PORT || 3000); // set up port variable and run on 3000 by default
@@ -55,7 +55,7 @@ app.post('/api/v1/palettes', (request, response) => { // calling POST method to 
   const palette = request.body; // request body object value
 
   if (!palette.palette_name) {
-    return response.status(406).send({ error: 'Missing Data'}) // returning response object with status code and message that data is missing
+    return response.status(422).send({ error: 'Missing Data'}) // returning response object with status code and message that data is missing
   } else {
     database('palettes').insert(palette, 'id') // insert data with an id at this table
 
@@ -72,7 +72,7 @@ app.post('/api/v1/projects', (request, response) => { // calling GET method to t
   const project = request.body; // request body object value
 
   if (!project.project_name) {
-    return response.status(406).send({ error: 'Missing Data'}) // returning response object with status code and message that data is missing
+    return response.status(422).send({ error: 'Missing Data'}) // returning response object with status code and message that data is missing
   } else {
     database('projects').insert(project, 'id') // insert data with an id at this table
 

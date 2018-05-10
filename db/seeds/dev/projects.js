@@ -19,14 +19,14 @@ exports.seed = function(knex, Promise) {
               "color4": "#E871A9",
               "project_id": project[0],
             },
-            { id:2,
-              palette_name: 'Sick Sticks',
-              color0: '#B93CE8',
-              color1: '#0D0F4C',
-              color2: '#448232',
-              color3: '#42F3E7',
-              color4: '#258006',
-              project_id: project[1]
+            { "id": 2,
+              "palette_name": "Sick Sticks",
+              "color0": "#B93CE8",
+              "color1": "#0D0F4C",
+              "color2": "#448232",
+              "color3": "#42F3E7",
+              "color4": "#258006",
+              "project_id": project[1]
             }
           ])
         })
@@ -36,4 +36,3 @@ exports.seed = function(knex, Promise) {
     })
     .catch(error => console.log(`Error seeding data: ${error}`));
 };
-
