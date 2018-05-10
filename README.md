@@ -9,4 +9,4 @@ Inspired by Coolers, warning: this vintage colored TV will generate random color
 First time building server with Knex.js/Express.js with TRAVIS CI for quality production. Written in jQuery for good measures. Responsiveness coming soon!
 
 # Screenshot
-[!ppv!](https://github.com/chunktooth/palette-picker/blob/master/public/images/palette-picker-vintange.png)
+[!ppv](https://github.com/chunktooth/palette-picker/blob/master/public/images/palette-picker-vintange.png)
