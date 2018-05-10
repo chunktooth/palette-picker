@@ -49,7 +49,6 @@ async function fetchProjects() {
   try {
     let response = await fetch('/api/v1/projects');
     let projects = await response.json();
-    console.log(projects);
 
     return projects;
   } catch (error) {
@@ -61,7 +60,6 @@ async function fetchPalettes() {
   try {
     let response = await fetch('/api/v1/palettes');
     let palettes = await response.json();
-    console.log(palettes);
 
     return palettes;
   } catch (error) {
