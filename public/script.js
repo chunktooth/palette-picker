@@ -176,7 +176,7 @@ async function postPalette(event) {
 
 async function deletePalette() {
   const paletteId = $(this).parent('div')[0].className.slice(-1);
-  console.log(paletteId);
+  console.log(paletteId)
 
   try {
     await fetch('/api/v1/palettes', {
@@ -191,7 +191,7 @@ async function deletePalette() {
 }
 
 async function deleteProject() {
-  const projectId = $(this).parent('div')[0].className;
+  const projectId = $(this).parent().parent('div')[0].className;
 
   try {
     await fetch('/api/v1/projects', {
