@@ -176,10 +176,10 @@ async function deletePalette() {
   const paletteId = $(this).parent('div')[0].className;
 
   try {
-    await fetch('/api/v1/palettes/{}', {
+    await fetch('/api/v1/palettes', {
       method: 'DELETE',
-      // body: JSON.stringify({ id: paletteId }),
-      // headers: { 'Content-Type': 'application/json' }
+      body: JSON.stringify({ id: paletteId }),
+      headers: { 'Content-Type': 'application/json' }
     })
     $(this).parent().remove();
   } catch (error) {
