@@ -85,13 +85,8 @@ app.post('/api/v1/projects', (request, response) => { // calling GET method to t
   };
 });
 
-<<<<<<< HEAD
 app.delete('/api/v1/palettes', (request, response) => { // calling DELETE method to this endpoint
   const id = request.body.id; // request body object value
-=======
-app.delete('/api/v1/palettes/:id', (request, response) => { // calling DELETE method to this endpoint
-  const id = request.params.id; // request body object value
->>>>>>> 1ec5314b136f6b70369f3a59e6a11f2b06843c40
 
   database('palettes').where('id', id).del()
   .then(palettes => { // returning solved promise 
