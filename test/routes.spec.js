@@ -99,65 +99,64 @@ describe('Testing endpoints', () => {
     });
   });
 
-  // describe('POST', () => {
-  //   it('POST a new project', (done) => {
-  //     chai.request(app)
-  //     .post('/api/v1/projects')
-  //     .send({
-  //       project_name: 'Project2'
-  //     })
-  //     .end((error, response) => {
-  //       response.should.have.status(201);
-  //       response.body.should.be.a('object');
-  //       response.body.should.have.property('id');
-  //       response.body.id.should.equal(3);
-  //     });
-  //     done();
-  //   });
-  // });
+  describe('POST', () => {
+    it('POST a new project', (done) => {
+      chai.request(app)
+      .post('/api/v1/projects')
+      .send({
+        project_name: 'Project2'
+      })
+      .end((error, response) => {
+        response.should.have.status(201);
+        response.body.should.be.a('object');
+        response.body.should.have.property('project_id');
+        response.body.project_id.should.equal(3);
+      });
+      done();
+    });
 
-    // it('POST a new palette', (done) => {
-    //   chai.request(app)
-    //   .post('/api/v1/palettes')
-    //   .send({
-    //     id: 3,
-    //     palette_name: 'Meep',
-    //     color0: '#B38938',
-    //     color1: '#A6C571',
-    //     color2: "#542912",
-    //     color3: '#818680',
-    //     color4: '#E871A9',
-    //     project_id: project[2]
-    //   })
-    //   .end((error, response) => {
-    //     response.should.have.status(201);
-    //     response.body.should.be.a('object');
-    //     response.body.should.have.property('id');
-    //   });
-    //   done();      
-    // });
+    it('POST a new palette', (done) => {
+      chai.request(app)
+      .post('/api/v1/palettes')
+      .send({
+        id: 3,
+        palette_name: 'Ice-cream bar',
+        color0: '#B38938',
+        color1: '#A6C571',
+        color2: "#542912",
+        color3: '#818680',
+        color4: '#E871A9'
+      })
+      .end((error, response) => {
+        response.should.have.status(201);
+        response.body.should.be.a('object');
+        response.body.should.have.property('id');
+      });
+      done();      
+    });
 
-    // it('should not POST to projects with missing data', (done) => {
-    //   chai.request(app)
-    //   .post('/api/v1/projects')
-    //   .send({ })
-    //   .end((error, response) => {
-    //     response.should.have.status(422);
-    //     response.body.error.should.equal('Missing data')
-    //   });
-    //   done(); 
-    // }); 
+    it('should not POST to projects with missing data', (done) => {
+      chai.request(app)
+      .post('/api/v1/projects')
+      .send({ })
+      .end((error, response) => {
+        response.should.have.status(422);
+        response.body.error.should.equal('Missing Data')
+      });
+      done(); 
+    }); 
 
-    // it('should not POST to palettes with missing data', (done) => {
-    //   chai.request(app)
-    //   .post('/api/v1/palettes')
-    //   .send({ palette_name: '' })
-    //   .end((error, response) => {
-    //     response.should.have.status(422);
-    //     response.body.error.should.equal('Missing data')
-    //   });
-    //   done(); 
-    // });
+    it('should not POST to palettes with missing data', (done) => {
+      chai.request(app)
+      .post('/api/v1/palettes')
+      .send({ palette_name: '' })
+      .end((error, response) => {
+        response.should.have.status(422);
+        response.body.error.should.equal('Missing Data')
+      });
+      done(); 
+    });
+  });
 
   describe('DELETE', () => {
     it('DELETE a project with a specified id', (done) => {
