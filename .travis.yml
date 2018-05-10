@@ -11,4 +11,4 @@ deploy:
   app: palette-picker-vintage
   skip_cleanup: true
 notification:
-    email: false
+  email: false
