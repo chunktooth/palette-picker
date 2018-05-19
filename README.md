@@ -1,7 +1,7 @@
 # Palette Picker 
 [![Build Status](https://travis-ci.org/chunktooth/palette-picker.svg?branch=master)](https://travis-ci.org/chunktooth/palette-picker)
 
-By [chunktooth](https://github.com/chunktooth/)
+By [Om Saetehn](https://github.com/chunktooth/)
 
 Hosted on Heroku http://palette-picker-vintage.herokuapp.com/
 
